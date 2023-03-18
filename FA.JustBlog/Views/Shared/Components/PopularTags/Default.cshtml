@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Model.Tag.PopularTagModel>
+<div>
+    <h3 class="">Popular Tags</h3>
+    @{
+        if (Model != null)
+        {
+            <div class="mt-3 mb-4 d-flex flex-wrap">
+                @foreach (var item in Model)
+                {
+                    <a href="@Url.Action("GetPostByTag", "Post", new{tag = @item.TagName.Replace(" ", "-")} )" 
+                    class="popular-tag mb-1 me-1" style="">@item.TagName</a>
+                }
+            </div>
+        }
+    }
+</div>

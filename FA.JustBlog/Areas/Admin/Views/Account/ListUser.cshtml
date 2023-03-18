@@ -1,0 +1,143 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions {
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">User/</span> All User</h4>
+<table id="list-user" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>FullName</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>FullName</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Action</th>
+        </tr>
+    </tfoot>
+</table>
+<!-- Modal -->
+<div class="modal fade" id="basicModalUser" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Message</h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col mb-3">
+                        Are you sure you want to delete this item?
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary" onclick="DeleteUser()" data-bs-dismiss="modal"> &nbsp Yes &nbsp  </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.querySelector('#listuser').parentElement.classList.add("active");
+    document.querySelector('#listuser').parentElement.parentElement.parentElement.classList.add("active");
+    document.querySelector('#listuser').parentElement.parentElement.parentElement.classList.add("open");
+
+    var deleteUserCode;
+    var tableUser;
+    function openConfirmDelete(userId) {
+        deleteUserCode = userId;
+    }
+    function DeleteUser() {
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "3000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        $.ajax({
+            url: '/admin/user/delete',
+            type: 'post',
+            
+            data: {userId : deleteUserCode},
+            headers:
+            {
+                "RequestVerificationToken": '@GetAntiXsrfRequestToken()'
+            },
+            success: function(result) {
+                toastr.success('Delete successfully !');
+                tableUser.ajax.reload();
+            },
+            error: function(result) {
+                toastr.error('Delete failure !');
+
+            }
+        });
+
+    }
+    $(document).ready(function() {
+        tableUser = $('#list-user').DataTable({
+            ajax: {
+                url: '/admin/getusers',
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                }
+            },
+            deferRender: true,
+            columns: [
+                { "data": "fullName", "name": "FullName", "class": "fullName" },
+                { "data": "username", "name": "Username", "class": "username" },
+                { "data": "email", "name": "Email", "class": "Email" },
+                { "data": "roles", "name": "Roles", "class": "roles" },
+                {
+                    "class": "action",
+                    "render": function(data, row, full) {
+                        return `
+                                                        <a href='#' class='menu-icon bx bx-trash' style='color:red' title='Xóa'
+                                                            data-bs-toggle="modal" data-bs-target="#basicModalUser"
+                                                            onclick=openConfirmDelete("${full.id}")></a>`;
+                    }
+                },
+            ],
+        });
+    });
+
+
+
+</script>

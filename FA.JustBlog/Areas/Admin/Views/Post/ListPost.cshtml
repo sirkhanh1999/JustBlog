@@ -1,0 +1,552 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Post/</span> All Post</h4>
+
+<div class="row">
+    <div class="">
+        <div class="nav-align-top mb-4">
+            <ul class="nav nav-pills mb-3" role="tablist">
+                <li class="nav-item">
+                    <button type="button"
+                            class="nav-link active"
+                            role="tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#navs-pills-top-allpost"
+                            aria-controls="navs-pills-top-allpost"
+                            aria-selected="true">
+                        All
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" id="btn-last"
+                            class="nav-link"
+                            role="tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#navs-pills-top-lastestposts"
+                            aria-controls="navs-pills-top-lastestposts"
+                            aria-selected="false">
+                        Latest Posts
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" id="btn-most"
+                            class="nav-link"
+                            role="tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#navs-pills-top-mostviewposts"
+                            aria-controls="navs-pills-top-mostviewposts"
+                            aria-selected="false">
+                        Most Viewed Posts
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" id="btn-inter"
+                            class="nav-link"
+                            role="tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#navs-pills-top-mostinterposts"
+                            aria-controls="navs-pills-top-mostinterposts"
+                            aria-selected="false">
+                        Most Interesting Posts
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" id="btn-pub"
+                            class="nav-link"
+                            role="tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#navs-pills-top-pubposts"
+                            aria-controls="navs-pills-top-pubposts"
+                            aria-selected="false">
+                        Published Posts
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" id="btn-unpub"
+                            class="nav-link"
+                            role="tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#navs-pills-top-unpubposts"
+                            aria-controls="navs-pills-top-unpubposts"
+                            aria-selected="false">
+                        Un-published Posts
+                    </button>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="navs-pills-top-allpost" role="tabpanel">
+                    @*Table*@
+                    <table id="example" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Posted On</th>
+                                <th>View Count</th>
+                                <th>Rate</th>
+                                <th>Category</th>
+                                <th>Published</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Posted On</th>
+                                <th>View Count</th>
+                                <th>Rate</th>
+                                <th>Category</th>
+                                <th>Published</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="navs-pills-top-lastestposts" role="tabpanel">
+                    @*Table*@
+                    <table id="lastestposts" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Posted On</th>
+                                <th>View Count</th>
+                                <th>Rate</th>
+                                <th>Category</th>
+                                <th>Published</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Posted On</th>
+                                <th>View Count</th>
+                                <th>Rate</th>
+                                <th>Category</th>
+                                <th>Published</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="navs-pills-top-mostviewposts" role="tabpanel">
+                    @*Table*@
+                    <table id="mostviewposts" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Posted On</th>
+                                <th>View Count</th>
+                                <th>Rate</th>
+                                <th>Category</th>
+                                <th>Published</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Posted On</th>
+                                <th>View Count</th>
+                                <th>Rate</th>
+                                <th>Category</th>
+                                <th>Published</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="navs-pills-top-mostinterposts" role="tabpanel">
+                    @*Table*@
+                    <table id="mostinterposts" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Posted On</th>
+                                <th>View Count</th>
+                                <th>Rate</th>
+                                <th>Category</th>
+                                <th>Published</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Posted On</th>
+                                <th>View Count</th>
+                                <th>Rate</th>
+                                <th>Category</th>
+                                <th>Published</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="navs-pills-top-pubposts" role="tabpanel">
+                    @*Table*@
+                    <table id="pubposts" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Posted On</th>
+                                <th>View Count</th>
+                                <th>Rate</th>
+                                <th>Category</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Posted On</th>
+                                <th>View Count</th>
+                                <th>Rate</th>
+                                <th>Category</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="navs-pills-top-unpubposts" role="tabpanel">
+                    @*Table*@
+                    <table id="unpubposts" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Posted On</th>
+                                <th>View Count</th>
+                                <th>Rate</th>
+                                <th>Category</th>
+
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Title</th>
+                                <th>Short Description</th>
+                                <th>Posted On</th>
+                                <th>View Count</th>
+                                <th>Rate</th>
+                                <th>Category</th>
+
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Message</h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col mb-3">
+                        Are you sure you want to delete this item?
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary" onclick="DeletePost()" data-bs-dismiss="modal"> &nbsp Yes &nbsp  </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelector('#allpost').parentElement.classList.add("active");
+
+    var deleteCode;
+    var table;
+    var tablelastest;
+    var tablemostview;
+    var tablemostinter;
+    var tablepub;
+    var tableunpub;
+
+    function openConfirmDelete(postCode) {
+        deleteCode = postCode;
+    }
+
+    function DeletePost() {
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "3000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        $.ajax({
+            url: '/admin/post/delete',
+            type: 'get',
+            data: { postId: deleteCode },
+            success: function(result) {
+                toastr.success('Delete successfully !');
+                table.ajax.reload();
+                tablelastest.ajax.reload();
+                tablemostview.ajax.reload();
+                tablemostinter.ajax.reload();
+                tablepub.ajax.reload();
+                tableunpub.ajax.reload();
+            },
+            error: function(result) {
+                toastr.error('Delete failure !');
+            }
+        });
+    }
+
+
+    $(document).ready(function() {
+        $.fn.dataTable.moment('DD/MM/YYYY LT');
+        table = $('#example').DataTable({
+            ajax: {
+                url: '/admin/post/allpost',
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                }
+            },
+            deferRender: true,
+            columns: [
+                { "data": "title", "name": "Title", "class": "title" },
+                { "data": "shortDescription", "name": "Short Description", "class": "shortDescription" },
+                { "data": "postedOn", "name": "Posted On", "class": "postedOn" },
+                { "data": "viewCount", "name": "View Count", "class": "viewCount" },
+                { "data": "rate", "name": "Rate", "class": "rate" },
+                { "data": "category", "name": "Category", "class": "category" },
+                { "data": "published", "name": "Published", "class": "published" },
+                {
+                    "class": "action",
+                    "render": function(data, row, full) {
+                        return `<a href='/admin/post/update/${full.postId}' class='menu-icon bx bx-edit' title='Sửa'; ></a>
+                                                                        <a href='#' class='menu-icon bx bx-trash' style='color:red' title='Xóa'
+                                                                            data-bs-toggle="modal" data-bs-target="#basicModal "
+                                                                            onclick=openConfirmDelete("${full.postId}")></a>`;
+                    }
+                },
+            ],
+        });
+
+
+    });
+
+    $('#btn-last').click(function() {
+        $.fn.dataTable.moment('DD/MM/YYYY LT');
+        tablelastest = $('#lastestposts').DataTable({
+            ajax: {
+                url: '/admin/post/lastestposts',
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                }
+            },
+            "bDestroy": true,
+            deferRender: true,
+            order: [],
+            columns: [
+                { "data": "title", "name": "Title", "class": "title" },
+                { "data": "shortDescription", "name": "Short Description", "class": "shortDescription" },
+                { "data": "postedOn", "name": "Posted On", "class": "postedOn" },
+                { "data": "viewCount", "name": "View Count", "class": "viewCount" },
+                { "data": "rate", "name": "Rate", "class": "rate" },
+                { "data": "category", "name": "Category", "class": "category" },
+                { "data": "published", "name": "Published", "class": "published" },
+                {
+                    "class": "action",
+                    "render": function(data, row, full) {
+                        return `<a href='/admin/post/update/${full.postId}' class='menu-icon bx bx-edit' title='Sửa'; ></a>
+                                                                        <a href='#' class='menu-icon bx bx-trash' style='color:red' title='Xóa'
+                                                                            data-bs-toggle="modal" data-bs-target="#basicModal "
+                                                                            onclick=openConfirmDelete("${full.postId}")></a>`;
+                    }
+                },
+            ],
+        });
+    });
+
+    $('#btn-most').click(function() {
+        $.fn.dataTable.moment('DD/MM/YYYY LT');
+        tablemostview = $('#mostviewposts').DataTable({
+            ajax: {
+                url: '/admin/post/mostviewposts',
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                }
+            },
+            "bDestroy": true,
+            deferRender: true,
+            order: [],
+            columns: [
+                { "data": "title", "name": "Title", "class": "title" },
+                { "data": "shortDescription", "name": "Short Description", "class": "shortDescription" },
+                { "data": "postedOn", "name": "Posted On", "class": "postedOn" },
+                { "data": "viewCount", "name": "View Count", "class": "viewCount" },
+                { "data": "rate", "name": "Rate", "class": "rate" },
+                { "data": "category", "name": "Category", "class": "category" },
+                { "data": "published", "name": "Published", "class": "published" },
+                {
+                    "class": "action",
+                    "render": function(data, row, full) {
+                        return `<a href='/admin/post/update/${full.postId}' class='menu-icon bx bx-edit' title='Sửa'; ></a>
+                                                                        <a href='#' class='menu-icon bx bx-trash' style='color:red' title='Xóa'
+                                                                            data-bs-toggle="modal" data-bs-target="#basicModal "
+                                                                            onclick=openConfirmDelete("${full.postId}")></a>`;
+                    }
+                },
+            ],
+        });
+    });
+
+    $('#btn-inter').click(function() {
+        $.fn.dataTable.moment('DD/MM/YYYY LT');
+        tablemostinter = $('#mostinterposts').DataTable({
+            ajax: {
+                url: '/admin/post/mostinterposts',
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                }
+            },
+            "bDestroy": true,
+            deferRender: true,
+            order: [],
+            columns: [
+                { "data": "title", "name": "Title", "class": "title" },
+                { "data": "shortDescription", "name": "Short Description", "class": "shortDescription" },
+                { "data": "postedOn", "name": "Posted On", "class": "postedOn" },
+                { "data": "viewCount", "name": "View Count", "class": "viewCount" },
+                { "data": "rate", "name": "Rate", "class": "rate" },
+                { "data": "category", "name": "Category", "class": "category" },
+                { "data": "published", "name": "Published", "class": "published" },
+                {
+                    "class": "action",
+                    "render": function(data, row, full) {
+                        return `<a href='/admin/post/update/${full.postId}' class='menu-icon bx bx-edit' title='Sửa'; ></a>
+                                                                        <a href='#' class='menu-icon bx bx-trash' style='color:red' title='Xóa'
+                                                                            data-bs-toggle="modal" data-bs-target="#basicModal "
+                                                                            onclick=openConfirmDelete("${full.postId}")></a>`;
+                    }
+                },
+            ],
+        });
+    });
+
+    $('#btn-pub').click(function() {
+        $.fn.dataTable.moment('DD/MM/YYYY LT');
+
+        tablepub = $('#pubposts').DataTable({
+            ajax: {
+                url: '/admin/post/publishedposts',
+                method: "GET",
+                async: true,
+                error: function() {
+                    toastr.error('You do not have access to Published Posts!');
+                },
+                xhrFields: {
+                    withCredentials: true
+                }
+            },
+            "bDestroy": true,
+            deferRender: true,
+            order: [],
+            columns: [
+                { "data": "title", "name": "Title", "class": "title" },
+                { "data": "shortDescription", "name": "Short Description", "class": "shortDescription" },
+                { "data": "postedOn", "name": "Posted On", "class": "postedOn" },
+                { "data": "viewCount", "name": "View Count", "class": "viewCount" },
+                { "data": "rate", "name": "Rate", "class": "rate" },
+                { "data": "category", "name": "Category", "class": "category" },
+                {
+                    "class": "action",
+                    "render": function(data, row, full) {
+                        return `<a href='/admin/post/update/${full.postId}' class='menu-icon bx bx-edit' title='Sửa'; ></a>
+                                                                        <a href='#' class='menu-icon bx bx-trash' style='color:red' title='Xóa'
+                                                                            data-bs-toggle="modal" data-bs-target="#basicModal "
+                                                                            onclick=openConfirmDelete("${full.postId}")></a>`;
+                    }
+                },
+            ],
+        });
+    });
+
+    $('#btn-unpub').click(function() {
+        $.fn.dataTable.moment('DD/MM/YYYY LT');
+
+        tableunpub = $('#unpubposts').DataTable({
+            ajax: {
+                url: '/admin/post/unpublishedposts',
+                method: "GET",
+                error: function() {
+                    toastr.error('You do not have access to UnPublished Posts!');
+                },
+                xhrFields: {
+                    withCredentials: true
+                }
+            },
+            "bDestroy": true,
+            deferRender: true,
+            order: [],
+            columns: [
+                { "data": "title", "name": "Title", "class": "title" },
+                { "data": "shortDescription", "name": "Short Description", "class": "shortDescription" },
+                { "data": "postedOn", "name": "Posted On", "class": "postedOn" },
+                { "data": "viewCount", "name": "View Count", "class": "viewCount" },
+                { "data": "rate", "name": "Rate", "class": "rate" },
+                { "data": "category", "name": "Category", "class": "category" },
+                {
+                    "class": "action",
+                    "render": function(data, row, full) {
+                        return `<a href='/admin/post/update/${full.postId}' class='menu-icon bx bx-edit' title='Sửa'; ></a>
+                                                                        <a href='#' class='menu-icon bx bx-trash' style='color:red' title='Xóa'
+                                                                            data-bs-toggle="modal" data-bs-target="#basicModal "
+                                                                            onclick=openConfirmDelete("${full.postId}")></a>`;
+                    }
+                },
+            ],
+        });
+    });
+
+</script>

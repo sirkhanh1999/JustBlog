@@ -1,0 +1,51 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+
+@model Model.User.RoleViewModel;
+
+
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">User/</span> Create Role</h4>
+
+<!-- Basic Layout -->
+<div class="row">
+    <div class="col-xl">
+        <div class="card mb-4">
+            <div class="card-body">
+                <form id="form-create-role">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Role Name</label>
+                        <input type="text" asp-for="RoleName" class="form-control" id="basic-default-fullname" placeholder="Role Name" />
+                        <span asp-validation-for="RoleName" class="text-danger"></span>
+                    </div>
+                    
+
+                    <button type="button" class="btn btn-primary mt-3" onclick="CreateRole()">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.querySelector('#createrole').parentElement.classList.add("active");
+    document.querySelector('#createrole').parentElement.parentElement.parentElement.classList.add("active");
+    document.querySelector('#createrole').parentElement.parentElement.parentElement.classList.add("open");
+
+    function CreateRole() {
+        $.ajax({
+            url: '/admin/role/create',
+            type: 'POST',
+            data: $('#form-create-role').serialize(),
+            success: function(result) {
+                toastr.success('Create successfully !');
+            },
+            error: function(result) {
+                toastr.error('Create failure !');
+            }
+        });
+    }
+</script>

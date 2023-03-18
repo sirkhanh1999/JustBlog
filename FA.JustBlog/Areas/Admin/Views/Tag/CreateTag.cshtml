@@ -1,0 +1,54 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+
+@model Model.Tag.TagDetailsModel;
+
+
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tag/</span> Create Tag</h4>
+
+<!-- Basic Layout -->
+<div class="row">
+    <div class="col-xl">
+        <div class="card mb-4">
+            <div class="card-body">
+                <form id="form-create-tag">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Tag Name</label>
+                        <input type="text" asp-for="TagName" class="form-control" id="basic-default-fullname" placeholder="Tag Name" />
+                        <span asp-validation-for="TagName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Description</label>
+                        <input type="text" asp-for="Decription" class="form-control" id="basic-default-company" placeholder="Description" />
+                        <span asp-validation-for="Decription" class="text-danger"></span>
+                    </div>
+                    <input type="text" asp-for="Id" hidden/>
+                    <input type="text" asp-for="Count" hidden/>
+                    <button type="button" class="btn btn-primary mt-3" onclick="CreateTag()">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.querySelector('#createtag').parentElement.classList.add("active");
+
+    function CreateTag() {
+        $.ajax({
+            url: '/admin/tag/create',
+            type: 'POST',
+            data: $('#form-create-tag').serialize(),
+            success: function(result) {
+                toastr.success('Create successfully !');
+            },
+            error: function(result) {
+                toastr.error('Create failure !');
+            }
+        });
+    }
+</script>

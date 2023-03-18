@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Model.Post.PostTitleModel>
+<hr class="my-4" />
+<h3>Most Viewed Posts</h3>
+@{
+    if (Model != null)
+    {
+        @foreach (var item in Model)
+        {
+            <!-- Post preview-->
+            <div class="">
+                <a href="@Url.Action("DetailsByUrl", "Post"
+                , new{year = @item.PostedOn.Year, month = @item.PostedOn.Month.ToString("00"), urlSlug = @item.UrlSlug} )">
+                    @item.Title
+                </a>
+            </div>
+            <!-- Divider-->
+            <hr class="my-2" />
+        }
+    }
+}
+

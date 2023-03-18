@@ -1,0 +1,120 @@
+﻿@using FA.JustBlog.Services.CategoryService
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+@inject ICategoryService categoryService;
+@model Model.Post.PostDetailsModel;
+@{
+    var post = Model;
+}
+
+
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Post/</span> Update Post</h4>
+
+<!-- Basic Layout -->
+<div class="row">
+    <div class="col-xl">
+        <div class="card mb-4">
+
+            <div class="card-body">
+                <form id="form-update-post">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Title</label>
+                        <input type="text" asp-for="Title" class="form-control" id="basic-default-fullname" placeholder="Title" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Short Description</label>
+                        <input type="text" asp-for="ShortDescription" class="form-control" id="basic-default-company" placeholder="Short Description" />
+                        <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-message">Post Content</label>
+                        <textarea asp-for="PostContent" id="basic-default-message"
+                                  class="form-control"
+                                  placeholder="Post Content" style="height:400px"></textarea>
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Posted On</label>
+                        <input type="datetime-local" asp-for="PostedOn" class="form-control" id="basic-default-company" placeholder="Posted On" />
+                        <span asp-validation-for="PostedOn" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="defaultSelect" class="form-label">Category</label>
+                        <select asp-for="CategoryId" id="select-cate" class="form-select">
+                            @{
+                                var cates = await categoryService.GetAllCategoryName();
+                                foreach (var item in cates)
+                                {
+                                    if (item.Id == Model.CategoryId)
+                                    {
+                                        <option value="@item.Id" selected>@item.CategoryName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Id">@item.CategoryName</option>
+                                    }
+                                    
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Tag</label>
+
+                        <input type="text" asp-for="TagsName" class="form-control tagin" data-tagin-enter data-tagin-placeholder="Add a tag... (then press comma or enter)">
+
+                    </div>
+                    <div class="mb-3" id="div-pub">
+                        <label for="defaultSelect" class="form-label">Published</label>
+                        <div>
+                            <input asp-for="Published"
+                                   class="form-check-input"
+                                   type="radio"
+                                   value="true"
+                                   id="defaultRadio1" checked />
+                            <label class="form-check-label me-1" id="label-true"> True </label>
+                            <input asp-for="Published"
+                                   class="form-check-input"
+                                   type="radio"
+                                   value="false"
+                                   id="defaultRadio2" />
+                            <label class="form-check-label" id="label-false"> False </label>
+                        </div>
+                        <span asp-validation-for="Published" class="text-danger"></span>
+                    </div>
+
+                    <input type="text" asp-for="Id" hidden/>
+                    <button type="button" class="btn btn-primary mt-3" onclick="UpdatePost()">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function UpdatePost() {
+        $.ajax({
+            url: '/admin/post/update',
+            type: 'POST',
+            data: $('#form-update-post').serialize() ,
+            success: function(result) {
+                toastr.success('Update successfully !');
+                table.ajax.reload();
+            },
+            error: function(result) {
+                toastr.error('Update failure !');
+                table.ajax.reload();
+            }
+        });
+    }
+</script>
+
+
+<script src="~/js/ValidateForm.js"></script>

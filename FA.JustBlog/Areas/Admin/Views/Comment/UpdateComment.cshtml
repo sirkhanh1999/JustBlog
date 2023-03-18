@@ -1,0 +1,86 @@
+﻿@using FA.JustBlog.Services.PostService
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+@inject IPostService postService;
+@model Model.Comment.CommentDetailsModel;
+
+
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Comment/</span> Update Comment</h4>
+
+<!-- Basic Layout -->
+<div class="row">
+    <div class="col-xl">
+        <div class="card mb-4">
+            <div class="card-body">
+                <form id="form-update-comment">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Name</label>
+                        <input type="text" asp-for="Name" class="form-control" id="basic-default-fullname" placeholder="Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Email</label>
+                        <input type="text" asp-for="Email" class="form-control" id="basic-default-company" placeholder="Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Comment Header</label>
+                        <input type="text" asp-for="CommentHeader" class="form-control" id="basic-default-company" placeholder="Comment Header" />
+                        <span asp-validation-for="CommentHeader" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Comment Text</label>
+                        <input type="text" asp-for="CommentText" class="form-control" id="basic-default-company" placeholder="Comment Text" />
+                        <span asp-validation-for="CommentText" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Comment Time</label>
+                        <input type="datetime-local" asp-for="CommentTime" class="form-control" id="basic-default-company" placeholder="Comment Time" />
+                        <span asp-validation-for="CommentTime" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="defaultSelect" class="form-label">Post</label>
+                        <select asp-for="PostId" id="select-cate" class="form-select">
+                            @*<option disabled selected hidden value="0">Category</option>*@
+                            @{
+                                var posts = await postService.GetAllPostView();
+                                foreach (var item in posts)
+                                {
+                                    <option value="@item.PostId">@item.Title</option>
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="PostId" class="text-danger"></span>
+                    </div>
+
+                    <input type="text" asp-for="Id" hidden/>
+                    <button type="button" class="btn btn-primary mt-3" onclick="UpdateComment()">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    function UpdateComment() {
+        $.ajax({
+            url: '/admin/comment/update',
+            type: 'POST',
+            data: $('#form-update-comment').serialize() ,
+            success: function(result) {
+                toastr.success('Update successfully !');
+
+            },
+            error: function(result) {
+                toastr.error('Update failure !');
+
+            }
+        });
+    }
+</script>
+
+
+<script src="~/js/ValidateForm.js"></script>

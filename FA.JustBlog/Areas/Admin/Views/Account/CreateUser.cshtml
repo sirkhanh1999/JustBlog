@@ -1,0 +1,99 @@
+﻿@model Model.User.UserCreateModel;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions {
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">User/</span> Create User</h4>
+
+<!-- Basic Layout -->
+<div class="row">
+    <div class="col-xl">
+        <div class="card mb-4">
+            <div class="card-body">
+                <form id="form-create-user">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Full Name</label>
+                        <input type="text" asp-for="FullName" class="form-control" id="user-fullname" placeholder="Full Name" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Email</label>
+                        <input type="text" asp-for="Email" class="form-control" id="user-email" placeholder="Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-company2">Username</label>
+                        <input type="text" asp-for="Username" class="form-control" id="user-username" placeholder="Username" />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-company3">Password</label>
+                        <input type="password" asp-for="Password" class="form-control" id="user-password" placeholder="Password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="col-md">
+                        <label class="form-label">Roles</label>
+                        @foreach (var item in (SelectList)ViewBag.Role)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input role" type="checkbox" value="@item.Value" />
+                                <label class="form-check-label" for="defaultCheck1"> @item.Text </label>
+                            </div>
+                        }
+                    </div>
+                    <button type="button" class="btn btn-primary mt-3" onclick="CreateUser()">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.querySelector('#createuser').parentElement.classList.add("active");
+    document.querySelector('#createuser').parentElement.parentElement.parentElement.classList.add("active");
+    document.querySelector('#createuser').parentElement.parentElement.parentElement.classList.add("open");
+
+    function CreateUser() {
+        let checkedValue = [];
+        let inputElements = document.getElementsByClassName('role');
+        for (var i = 0; inputElements[i]; ++i) {
+            if (inputElements[i].checked) {
+                checkedValue.push(inputElements[i].value);
+            }
+        }
+
+        let fullname = document.getElementById("user-fullname").value;
+        let email = document.getElementById("user-email").value;
+        let username = document.getElementById("user-username").value;
+        let password = document.getElementById("user-password").value;
+        let roles = checkedValue.join(", ");
+        var model = JSON.stringify({ 'FullName': fullname, 'Email': email, 'Username': username, 'Password': password, 'Roles': roles });
+
+        $.ajax({
+            url: '/admin/user/create',
+            type: 'POST',
+            data: model,
+            headers:
+            {
+                "RequestVerificationToken": '@GetAntiXsrfRequestToken()'
+            },
+            contentType: 'application/json; charset=utf-8',
+            success: function(result) {
+                toastr.success('Create successfully !');
+            },
+            error: function(result) {
+                toastr.error('Create failure !');
+            }
+        });
+    }
+</script>
+

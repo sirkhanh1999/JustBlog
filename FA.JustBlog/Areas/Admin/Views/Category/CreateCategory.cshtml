@@ -1,0 +1,60 @@
+﻿
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+
+@model Model.Category.CategoryDetailsModel;
+
+
+
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Category/</span> Create Category</h4>
+
+<!-- Basic Layout -->
+<div class="row">
+    <div class="col-xl">
+        <div class="card mb-4">
+            <div class="card-body">
+                <form  id="form-create-category">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Category Name</label>
+                        <input type="text" asp-for="CategoryName" class="form-control" id="basic-default-fullname" placeholder="Category Name" />
+                        <span asp-validation-for="CategoryName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Description</label>
+                        <input type="text" asp-for="Description" class="form-control" id="basic-default-company" placeholder="Description" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    
+                    <button type="button" class="btn btn-primary mt-3" onclick="CreateCategory()">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.querySelector('#createcategory').parentElement.classList.add("active");
+
+    function CreateCategory() {
+        $.ajax({
+            url: '/admin/category/create',
+            type: 'POST',
+            data: $('#form-create-category').serialize() ,
+            success: function(result) {
+                toastr.success('Create successfully !');
+                
+            },
+            error: function(result) {
+                toastr.error('Create failure !');
+                
+            }
+        });
+    }
+</script>
+
+
+<script src="~/js/ValidateForm.js"></script>

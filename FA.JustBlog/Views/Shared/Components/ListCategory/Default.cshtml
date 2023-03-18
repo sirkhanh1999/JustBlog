@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Model.Category.CategoryViewModel>
+@{
+    if (Model != null)
+    {
+        @foreach (var item in Model)
+        {
+            <li><a class="dropdown-item cate-item" href="@Url.Action("GetPostByCategory", "Post", new{category = @item.CategoryName.Replace(" ", "-")} )">@item.CategoryName</a></li>
+        }
+    }
+}
+
+
+

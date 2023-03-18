@@ -1,0 +1,57 @@
+﻿
+
+
+.popular-tag {
+    padding: 4px 10px;
+    background: black;
+    color: white;
+    text-decoration: underline;
+}
+
+    .popular-tag :hover {
+        background: #0085A1;
+        color: white;
+    }
+
+.cate-item {
+    color: #fff;
+    font-weight: 600;
+}
+
+.hide {
+    display: none !important;
+}
+
+.form-control.focus {
+    border-color: #696cff !important;
+}
+
+.tagin-wrapper.focus {
+    box-shadow: none !important;
+    border-color: #696cff !important;
+    outline: none !important;
+}
+
+/* Error */
+label.error {
+    color: red;
+    font-size: 14px;
+    display: block;
+    margin-left: 2px;
+}
+
+input.error {
+    border: 1px solid red;
+    font-weight: 300;
+    color: red;
+}
+
+#div-pub {
+    position: relative;
+}
+
+/*#defaultRadio2 {
+    position: relative;
+    top: -46px;
+    left: 32px;
+}*/
